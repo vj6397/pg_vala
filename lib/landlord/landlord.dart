@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:pg_vala/httpconnection/jswTokenforLanlord.dart';
+import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -13,7 +13,7 @@ class Landlord extends StatefulWidget {
 }
 
 class _LandlordState extends State<Landlord> {
-  final CarouselController carouselController = CarouselController();
+
   int currentIndex=0;
   int _inputValue1 = 3000;
   int _inputValue2 = 3000;
@@ -55,10 +55,7 @@ class _LandlordState extends State<Landlord> {
     else print("error");
   }
 
-  final List imageAssets = [
-    {"id":1,"image_path":'assets/bed1.png'},
-    {"id":2,"image_path":'assets/bed2.png'},
-  ];
+
 
   @override
   void initState() {
@@ -74,28 +71,7 @@ class _LandlordState extends State<Landlord> {
         _isToggled1 = !_isToggled1;
       });
     }
-    final imageSlider = CarouselSlider(
-      items: imageAssets.map(
-            (item) => Image.asset(
-          item['image_path'],
-          fit: BoxFit.cover,
-          width: double.infinity,
-        ),
-      )
-          .toList(),
-      carouselController: carouselController,
-      options: CarouselOptions(
-          scrollPhysics: const BouncingScrollPhysics(),
-          autoPlay: false,
-          aspectRatio: 2,
-          viewportFraction: 1,
-          onPageChanged: (index, reason){
-            setState(() {
-              currentIndex = index;
-            });
-          }
-      ),
-    );
+
 
     return Scaffold(
       body: Padding(
@@ -339,7 +315,6 @@ class _LandlordState extends State<Landlord> {
                   ],
                 ),
                 Divider(),
-
               ],
             ),
           ],
