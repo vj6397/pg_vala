@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:pg_vala/login.dart';
+import 'package:pg_vala/login/login.dart';
 
 void main() {
   runApp(const MyApp());
