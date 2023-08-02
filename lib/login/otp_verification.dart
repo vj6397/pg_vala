@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:pg_vala/Api/request_util.dart';
+import 'package:http/http.dart'as http;
 
 class OtpVerify extends StatefulWidget {
   OtpVerify({required this.number});
@@ -17,6 +19,7 @@ class _OtpVerifyState extends State<OtpVerify> {
   int _remainingTime = 30; //initial time in seconds
   late Timer _timer;
   String _otp="";
+  RequestUtil util=new RequestUtil();
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -136,7 +139,10 @@ class _OtpVerifyState extends State<OtpVerify> {
                           ),),
                         SizedBox(width: 20),
                         InkWell(
-                          onTap: (){},
+                          onTap: (){
+                            // http.Response=util.cityList();
+
+                          },
                           child: Text('Resend Code',
                             style: GoogleFonts.openSans(
                                 color: Color(0xffC4C4C4),

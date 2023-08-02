@@ -25,26 +25,26 @@ class _LandlordState extends State<Landlord> {
 
   Future<void> _getData() async{
     http.Response response = await util.roomList();
-        if(response.statusCode==200){
-          setState(() {
-            //addList();
-            print(response.body);
-            jsonData = jsonDecode(response.body);
-            var i=0;
-            while(i<jsonData.length){
-              rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"]));
-              i++;
-            }
-            print(jsonData[0]["rent_price"]);print(jsonData[0]["roomid"]);
-            print(jsonData[0]["accomotation_type"]);
-            print(jsonData[0]["category"]);
-            print(jsonData.length);
-            print(jsonData[0]);
-          });
+    if(response.statusCode==200){
+      setState(() {
+        //addList();
+        print(response.body);
+        jsonData = jsonDecode(response.body);
+        var i=0;
+        while(i<jsonData.length){
+          rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"]));
+          i++;
         }
-        else{
-          print("error:${response.statusCode}");
-        }
+        print(jsonData[0]["rent_price"]);print(jsonData[0]["roomid"]);
+        print(jsonData[0]["accomotation_type"]);
+        print(jsonData[0]["category"]);
+        print(jsonData.length);
+        print(jsonData[0]);
+      });
+    }
+    else{
+      print("error:${response.statusCode}");
+    }
   }
   @override
   void initState() {
@@ -60,20 +60,14 @@ class _LandlordState extends State<Landlord> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-            child: Column(
-              children:
-                // roomTile(changedAmount: 1000, roomId: '123', displaysharing1: 'single', displayFurnish1: 'semi'),
-                // roomTile(changedAmount: 2000, roomId: '456', displaysharing1: 'double', displayFurnish1: 'fully')
-                rooms,
-            ),
+          child: Column(
+            children:
+            // roomTile(changedAmount: 1000, roomId: '123', displaysharing1: 'single', displayFurnish1: 'semi'),
+            // roomTile(changedAmount: 2000, roomId: '456', displaysharing1: 'double', displayFurnish1: 'fully')
+            rooms,
+          ),
         ),
-        ),
-      );
+      ),
+    );
   }
 }
-
-
-
-
-
-
