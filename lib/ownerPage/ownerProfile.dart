@@ -66,7 +66,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
               Center(
                 child: Container(
                   width: 300,
-                  height: 310,
+                  height: 250,
                   decoration: BoxDecoration(
                     // color: Color.fromARGB(255, 255,48,68),
                     borderRadius: BorderRadius.circular(20),
@@ -80,6 +80,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
                           radius: 80,
                           backgroundImage: AssetImage('assets/bed1.png'),
                         ),
+                        SizedBox(height: 5,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -89,9 +90,16 @@ class _OwnerProfileState extends State<OwnerProfile> {
                                 fontSize: 22,
                               ),
                             ),
-                            IconButton(onPressed:(){}, icon:Icon(Icons.edit))
                           ],
                         ),
+                        Text('${jsonData[0]['contact1']} '+"|"+' ${jsonData[0]['contact2']}',
+                          style: TextStyle(
+                            color:Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
                         Text(jsonData[0]['email'],
                           style: TextStyle(
                             color:Colors.black,
@@ -99,22 +107,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(height: 5,),
-                        Text('Contact1 :- ${jsonData[0]['contact1']}',
-                          style: TextStyle(
-                            color:Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: 5,),
-                        Text('Contact2 :- ${jsonData[0]['contact2']}',
-                          style: TextStyle(
-                            color:Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+
                       ],
                     ),
                   ),
@@ -124,7 +117,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
               Center(
                 child: Container(
                   width: 300,
-                  height: 350,
+                  height: 320,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 255,48,68),
                     borderRadius: BorderRadius.circular(25),
@@ -225,6 +218,9 @@ class _OwnerProfileState extends State<OwnerProfile> {
     );
   }
 }
+
+
+
 
 
 

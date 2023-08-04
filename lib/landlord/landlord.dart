@@ -58,7 +58,21 @@ class _LandlordState extends State<Landlord> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: rooms,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 150,top: 20),
+                child: Text('Accomodation List',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w400,
+                ),
+                ),
+              ),
+              SizedBox(height: 15,),
+              Column(
+                children: rooms,
+              ),
+            ],
           ),
         ),
       ),
