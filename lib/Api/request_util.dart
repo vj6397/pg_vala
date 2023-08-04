@@ -15,4 +15,9 @@ class RequestUtil{
       headers: {'Authorization': token},
     );
   }
+  Future<http.Response> ownerDetail()  async{
+    return http.get(Uri.parse(endponit1+'accommodation_detail/'),
+      headers: {'Authorization': token},
+    );
+  }
 }
