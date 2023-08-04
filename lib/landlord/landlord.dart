@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:pg_vala/utils/location_list.dart';
 import 'package:pg_vala/landlord/roomTile.dart';
 
 class Landlord extends StatefulWidget {
@@ -27,8 +26,9 @@ class _LandlordState extends State<Landlord> {
         jsonData = jsonDecode(response.body);
         var i=0;
         while(i<jsonData.length){
-          rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"],status: jsonData[i]["status"],));
+          rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"],status: jsonData[i]["status"],depositAmount: jsonData[i]["security_deposit"].toString()));
           i++;
+          //depositAmount: jsonData[i]["security_deposit"]
         }
         print(jsonData[0]["rent_price"]);print(jsonData[0]["roomid"]);
         print(jsonData[0]["accomotation_type"]);
@@ -36,6 +36,7 @@ class _LandlordState extends State<Landlord> {
         print(jsonData[0]["status"]);
         print(jsonData.length);
         print(jsonData[0]);
+        print(jsonData[0]["security_deposit"]);
       });
     }
     else{

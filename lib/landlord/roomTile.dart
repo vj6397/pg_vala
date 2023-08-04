@@ -1,18 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:pg_vala/page/updatePage.dart';
-import '../utils/location_list.dart';
 import 'package:http/http.dart' as http;
 
 class roomTile extends StatefulWidget {
-  roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status});
+  roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status,required this.depositAmount});
   String changedAmount;
   String roomId;
   String displaysharing1;
   String displayFurnish1;
   String status;
+  String depositAmount;
 
   @override
   State<roomTile> createState() => _roomTileState();
@@ -215,7 +214,8 @@ class _roomTileState extends State<roomTile> {
                           backgroundColor: Colors.white,
                         ),
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Update(roomId: widget.roomId,changesAmount: widget.changedAmount,displayFurnish1: widget.displayFurnish1,displaySharing1: widget.displaysharing1)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Update(roomId: widget.roomId,changesAmount: widget.changedAmount,displayFurnish1: widget.displayFurnish1,displaySharing1: widget.displaysharing1,depositAmount: widget.depositAmount)));
+                          //depositAmount: widget.depositAmount
                         },
                         child: Icon(Icons.more_vert,
                           color: Colors.black,

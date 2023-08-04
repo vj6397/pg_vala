@@ -4,7 +4,10 @@ import 'package:pg_vala/landlord/landlord.dart';
 import 'package:pg_vala/landlord/roomTile.dart';
 import 'package:pg_vala/login/login.dart';
 import 'package:pg_vala/login/otp_verification.dart';
+import 'package:pg_vala/ownerPage/ownerProfile.dart';
 import 'package:pg_vala/page/updatePage.dart';
+
+import 'Navigate/navigate.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,10 +30,12 @@ class MyApp extends StatelessWidget {
       //   // '/TakeAwayform': (context) => const PateintDetailsTakeaway(),
       // },
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: NavigationScreen(currIndx: 0),
     );
   }
 }
+
+
 
 
 

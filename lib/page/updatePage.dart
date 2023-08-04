@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pg_vala/Api/request_util.dart';
+import 'package:pg_vala/circularProgressIndicator/circularProgressIndicator.dart';
 import 'package:pg_vala/landlord/landlord.dart';
 import 'package:http/http.dart' as http;
 import 'package:pg_vala/ownerPage/ownerProfile.dart';
@@ -8,11 +9,13 @@ import '../main.dart';
 import '../utils/location_list.dart';
 
 class Update extends StatefulWidget {
-  Update({required this.roomId,required this.changesAmount,required this.displayFurnish1,required this.displaySharing1});
+  Update({required this.roomId,required this.changesAmount,required this.displayFurnish1,required this.displaySharing1,required this.depositAmount});
+  //
   String roomId;
   String displayFurnish1;
   String changesAmount;
   String displaySharing1;
+  String depositAmount;
 
   @override
   State<Update> createState() => _UpdateState();
@@ -42,12 +45,6 @@ class _UpdateState extends State<Update> {
     if(res_Type.statusCode==200) print(res_Type.body);
   }
 
-  void _restartApp(BuildContext context) {
-    setState(() {
-      runApp(MyApp());
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +63,7 @@ class _UpdateState extends State<Update> {
                       Container(
                         child: IconButton(
                           onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Landlord()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
                           },
                           icon: Icon(
                               Icons.arrow_back_rounded
@@ -128,7 +125,7 @@ class _UpdateState extends State<Update> {
                             decoration: InputDecoration(
                               filled: true,
                               prefixIcon: Icon(Icons.currency_rupee),
-                              hintText: 'Security Deposit',
+                              hintText: '${widget.depositAmount}',
                               labelText: 'Security Deposit',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -240,9 +237,7 @@ class _UpdateState extends State<Update> {
                       InkWell(
                         onTap: (){
                           UpdateDetails();
-                          // _restartApp(context);
-                          //Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>OwnerProfile()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>circularProgressIndicator()));
                         },
                         child: Container(
                           margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/2-60,bottom: 10),

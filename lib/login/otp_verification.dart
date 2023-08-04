@@ -8,6 +8,8 @@ import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart'as http;
 import 'package:pg_vala/landlord/landlord.dart';
 
+import '../Navigate/navigate.dart';
+
 class OtpVerify extends StatefulWidget {
   OtpVerify({required this.number});
 
@@ -125,7 +127,9 @@ class _OtpVerifyState extends State<OtpVerify> {
                         http.Response res= await util.login(widget.number.toString(), _otp);
                         if(res.statusCode==200){
                           print(res.body);
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Landlord()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationScreen(
+                            currIndx: 0,
+                          ),));
                         }
                         else{
                           print('hello');

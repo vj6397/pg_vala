@@ -1,10 +1,8 @@
-
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:pg_vala/Api/request_util.dart';
+import 'package:pg_vala/main.dart';
 
 class OwnerProfile extends StatefulWidget {
   @override
@@ -12,7 +10,6 @@ class OwnerProfile extends StatefulWidget {
 }
 
 class _OwnerProfileState extends State<OwnerProfile> {
-
   RequestUtil util=new RequestUtil();
   List<dynamic> jsonData=[];
   Future<void> _getData() async{
@@ -38,162 +35,191 @@ class _OwnerProfileState extends State<OwnerProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left:100,top: 20),
-              child: Text("Owner's Profile",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
+                  },
+                    icon: Icon(
+                          Icons.arrow_back_rounded
+                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left:10,top: 5),
+                    child: Text("Owner's Profile",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Container(
-                width: 300,
-                height: 250,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255,48,68),
-                  borderRadius: BorderRadius.circular(25),
-                ),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 80,
-                        backgroundImage: AssetImage('assets/bed1.png'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(jsonData[0]['owner_name'],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                          IconButton(onPressed:(){}, icon:Icon(Icons.edit))
-                        ],
-                      ),
-                      Text(jsonData[0]['email'],
-                        style: TextStyle(
-                          color:Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                  width: 300,
+                  height: 310,
+                  decoration: BoxDecoration(
+                    // color: Color.fromARGB(255, 255,48,68),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 80,
+                          backgroundImage: AssetImage('assets/bed1.png'),
                         ),
-                      ),
-                    ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(jsonData[0]['owner_name'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                              ),
+                            ),
+                            IconButton(onPressed:(){}, icon:Icon(Icons.edit))
+                          ],
+                        ),
+                        Text(jsonData[0]['email'],
+                          style: TextStyle(
+                            color:Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        Text('Contact1 :- ${jsonData[0]['contact1']}',
+                          style: TextStyle(
+                            color:Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        Text('Contact2 :- ${jsonData[0]['contact2']}',
+                          style: TextStyle(
+                            color:Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: Container(
-                width: 300,
-                height: 350,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255,48,68),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                TextField(
-                                  readOnly: true,
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    hintText: jsonData[0]['apartment_name'],
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 15,),
-                                TextField(
-                                  readOnly: true,
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    hintText: jsonData[0]['locality'],
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 15,),
-                                TextField(
-                                  readOnly: true,
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    hintText: jsonData[0]['city'],
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 15,),
-                                TextField(
-                                  readOnly: true,
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                    hintText: jsonData[0]['address'],
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                        ),
-                      )
-                    ],
+              SizedBox(height: 20,),
+              Center(
+                child: Container(
+                  width: 300,
+                  height: 350,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 255,48,68),
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                ),
-              )
-            ),
-          ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    readOnly: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: jsonData[0]['apartment_name'],
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 15,),
+                                  TextField(
+                                    readOnly: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: jsonData[0]['locality'],
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 15,),
+                                  TextField(
+                                    readOnly: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: jsonData[0]['city'],
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 15,),
+                                  TextField(
+                                    readOnly: true,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      hintText: jsonData[0]['address'],
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ),
+            ],
+          ),
         ),
       ),
     );
