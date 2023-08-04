@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       //   // '/TakeAwayform': (context) => const PateintDetailsTakeaway(),
       // },
       debugShowCheckedModeBanner: false,
-      home: Landlord(),
+      home: Login(),
     );
   }
 }

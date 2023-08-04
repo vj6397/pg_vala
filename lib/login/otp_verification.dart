@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart'as http;
+import 'package:pg_vala/landlord/landlord.dart';
 
 class OtpVerify extends StatefulWidget {
   OtpVerify({required this.number});
@@ -45,6 +47,7 @@ class _OtpVerifyState extends State<OtpVerify> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
+              margin: EdgeInsets.only(left: 10),
               child: Column(
                 children: [
                   Container(
@@ -60,7 +63,7 @@ class _OtpVerifyState extends State<OtpVerify> {
                               width: 35,
                               height: 35,
                               child: Image(
-                                  image: AssetImage('assets/backArrow.png'))),
+                                  image: AssetImage('assets/backArrow.jpg'))),
                         ),
                         Container(
                           margin: EdgeInsets.only(right: 20),
@@ -102,10 +105,48 @@ class _OtpVerifyState extends State<OtpVerify> {
                       onChanged: (otp) {
                         // Handle OTP input changes
                       },
-                      onCompleted: (otp) {
+                      onCompleted: (otp){
                         // Handle OTP verification
                         _otp=otp;
                       },
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    height: 45.0,
+                    width: MediaQuery.of(context).size.width-50,
+                    margin: EdgeInsets.symmetric(horizontal: 40),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.red,
+                    ),
+                    child: InkWell(
+                      onTap:()async{
+                        http.Response res= await util.login(widget.number.toString(), _otp);
+                        if(res.statusCode==200){
+                          print(res.body);
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Landlord()));
+                        }
+                        else{
+                          print('hello');
+                          Fluttertoast.showToast(
+                              msg: "Invalid OTP",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
+                        }
+                      },
+                      child: Center(
+                        child: Text('Login',style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20
+                        ),),
+                      ),
                     ),
                   ),
                 ],
@@ -139,9 +180,20 @@ class _OtpVerifyState extends State<OtpVerify> {
                           ),),
                         SizedBox(width: 20),
                         InkWell(
-                          onTap: (){
-                            // http.Response=util.cityList();
-
+                          onTap: ()async{
+                            http.Response res=await util.resendOtp(num);
+                            if(res.statusCode==200) {
+                              print(res.body);
+                              Fluttertoast.showToast(
+                                  msg: "new OTP is sent to your number",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                            }
                           },
                           child: Text('Resend Code',
                             style: GoogleFonts.openSans(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pg_vala/Api/request_util.dart';
 import 'otp_verification.dart';
+import 'package:http/http.dart'as http;
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  RequestUtil util=new RequestUtil();
   String num="";
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,10 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(right: 20),
-                  height: 120,width: 300,
+                  height: 180,width: 180,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/logo.jpg'),
+                          image: AssetImage('assets/check.png'),
                         fit: BoxFit.fill
                       )
                   ),
@@ -83,11 +86,14 @@ class _LoginState extends State<Login> {
                           margin: EdgeInsets.only(right: 30),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Color(0xff419f7d)
+                            color: Colors.red,
                           ),
                           child: InkWell(
-                            onTap:(){
+                            onTap:()async{
                               if(num.length==10){
+                                http.Response res=await util.resendOtp(num);
+                                if(res.statusCode==200) print(res.body);
+                                else print(res.body);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context)=>OtpVerify(number: num)),
@@ -115,32 +121,6 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30.0),
-                        Container(
-                          margin: EdgeInsets.only(left: 20,right: 40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text('Don\'t have an account yet?',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 13
-                              ),),
-                              InkWell(
-                                onTap: (){
-                                  print('hello');
-                                },
-                                child: Text('Register for free',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -151,15 +131,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-  void _showErrorSnackbar(BuildContext context, String errorMessage) {
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text(errorMessage),
-    //     backgroundColor: Colors.grey,
-    //     duration: Duration(seconds: 2),
-    //   ),
-    // );
-
   }
 }
