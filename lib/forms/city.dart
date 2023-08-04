@@ -19,17 +19,25 @@ class _CityLocationState extends State<CityLocation> {
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
 
-  // Future<void> _getData() async{
-  //   http.Response response = await util.cityList();
-  //     if(response.statusCode==200) {
-  //       print(response.body);
-  //       jsonData= jsonDecode(response.body);
-  //       print(jsonData);
-  //       print(jsonData[0]["city_name"]);
-  //       // print(jsonData["apartment_name"]);
-  //     }
-  //     else print("error");
-  // }
+  Future<void> _getData() async{
+    http.Response response = await util.cityList();
+      if(response.statusCode==200) {
+        print(response.body);
+        // addList();
+        jsonData= jsonDecode(response.body);
+        var i=0;
+        while(i<jsonData.length){
+          setState(() {
+            cities.add(jsonData[i]["city_name"]);
+          });
+        }
+        print(jsonData);
+        print(jsonData[0]["city_name"]);
+        // print(jsonData["apartment_name"]);
+      }
+      else print("error");
+  }
+
 
   @override
   void initState() {

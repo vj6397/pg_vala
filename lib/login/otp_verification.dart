@@ -59,8 +59,8 @@ class _OtpVerifyState extends State<OtpVerify> {
                               margin: EdgeInsets.only(right: 20),
                               width: 35,
                               height: 35,
-                              child: const Image(
-                                  image: AssetImage('assets/backArrow.jpg'))),
+                              child: Image(
+                                  image: AssetImage('assets/backArrow.png'))),
                         ),
                         Container(
                           margin: EdgeInsets.only(right: 20),
@@ -139,12 +139,9 @@ class _OtpVerifyState extends State<OtpVerify> {
                           ),),
                         SizedBox(width: 20),
                         InkWell(
-                          onTap: ()async{
-                            http.Response res= await util.cityList();
-                            if(res.statusCode==200){
-                              print(res.body);
-                            }
-                            else print('error');
+                          onTap: (){
+                            // http.Response=util.cityList();
+
                           },
                           child: Text('Resend Code',
                             style: GoogleFonts.openSans(

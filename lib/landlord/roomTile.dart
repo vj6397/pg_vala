@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pg_vala/page/changes.dart';
+import 'package:pg_vala/Api/request_util.dart';
+import 'package:pg_vala/page/updatePage.dart';
 import '../utils/location_list.dart';
+import 'package:http/http.dart' as http;
 
 class roomTile extends StatefulWidget {
   roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status});
@@ -11,7 +13,6 @@ class roomTile extends StatefulWidget {
   String displaysharing1;
   String displayFurnish1;
   String status;
-
 
   @override
   State<roomTile> createState() => _roomTileState();
@@ -23,28 +24,14 @@ class _roomTileState extends State<roomTile> {
   final TextEditingController furnishController = TextEditingController();
   final TextEditingController changedAmountController = TextEditingController();
   int currentindex=0;
-  bool isChecked=false;
-  var roomsharing_list = rooomsharing;
-  String dropdownvalue = rooomsharing.first;
 
-  String? selectedOption ;
 
+  RequestUtil util=new RequestUtil();
 
   final List imageAssets = [
     {"id":1,"image_path":'assets/bed1.png'},
     {"id":2,"image_path":'assets/bed2.png'},
   ];
-  bool _isToggled1 = false;
-  void _ToggleButton1(){
-    setState(() {
-      _isToggled1=!_isToggled1;
-    });
-  }
-  void setSelectedradio(String value) {
-    setState(() {
-      selectedOption=value;
-    });
-  }
   bool stringToBool(String value) {
     if (value.toLowerCase() =="available") {
       return true;
@@ -54,10 +41,26 @@ class _roomTileState extends State<roomTile> {
       throw Exception('Invalid string value for boolean conversion: $value');
     }
   }
-  
+  late bool _isToggled1;
+  void _ToggleButton1(bool value)async{
+    http.Response res=await util.update(widget.roomId, 'status', stringToBool(widget.status)?'booked':'available');
+    if(res.statusCode==200) print(res.body);
+    setState(() {
+      // _isToggled1=!_isToggled1;
+      _isToggled1=value;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isToggled1=stringToBool(widget.status);
+  }
+
+
   @override
   Widget build(BuildContext context) {
-   
+
     return Container(
       margin: EdgeInsets.only(top: 10,right: 5),
       child: Column(
@@ -212,10 +215,10 @@ class _roomTileState extends State<roomTile> {
                           backgroundColor: Colors.white,
                         ),
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Changes(roomId: widget.roomId,changesAmount: widget.changedAmount,displayFurnish1: widget.displayFurnish1,displaySharing1: widget.displaysharing1,)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Update(roomId: widget.roomId,changesAmount: widget.changedAmount,displayFurnish1: widget.displayFurnish1,displaySharing1: widget.displaysharing1)));
                         },
                         child: Icon(Icons.more_vert,
-                        color: Colors.black,
+                          color: Colors.black,
                         ),
                       ),
                     ],
@@ -224,10 +227,10 @@ class _roomTileState extends State<roomTile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Switch(
-                        value: stringToBool(widget.status),
+                        value: _isToggled1,
                         //stringToBool(widget.status)
                         onChanged: (value){
-                          _ToggleButton1();
+                          _ToggleButton1(value);
                         },
                         activeTrackColor: Colors.lightGreen,
                         activeColor: Colors.green,
@@ -238,7 +241,7 @@ class _roomTileState extends State<roomTile> {
                         width: 8,
                       ),
                       Text(
-                        stringToBool(widget.status)?'Avaliable':'Not Avaliable',
+                        _isToggled1?'Avaliable':'Not Avaliable',
                         //stringToBool(widget.status)
                         style: TextStyle(
                           fontSize: 15,

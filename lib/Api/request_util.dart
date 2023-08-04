@@ -20,4 +20,9 @@ class RequestUtil{
       headers: {'Authorization': token},
     );
   }
+  Future<http.Response> update(String roomid,String field,String value) async{
+    return  http.put(Uri.parse(endponit1+'room_detail_update/?roomid=$roomid&field=$field&value=$value'),
+      headers: {'Authorization': token},
+    );
+  }
 }

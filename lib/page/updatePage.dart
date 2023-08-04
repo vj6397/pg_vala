@@ -1,28 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pg_vala/Api/request_util.dart';
 import 'package:pg_vala/landlord/landlord.dart';
-import 'package:pg_vala/landlord/roomTile.dart';
+import 'package:http/http.dart' as http;
+import 'package:pg_vala/ownerPage/ownerProfile.dart';
+import '../main.dart';
 import '../utils/location_list.dart';
 
-class Changes extends StatefulWidget {
-  Changes({required this.roomId,required this.changesAmount,required this.displayFurnish1,required this.displaySharing1});
+class Update extends StatefulWidget {
+  Update({required this.roomId,required this.changesAmount,required this.displayFurnish1,required this.displaySharing1});
   String roomId;
   String displayFurnish1;
   String changesAmount;
   String displaySharing1;
 
-
   @override
-  State<Changes> createState() => _ChangesState();
+  State<Update> createState() => _UpdateState();
 }
 
-class _ChangesState extends State<Changes> {
+class _UpdateState extends State<Update> {
   var roomsharing_list = rooomsharing;
   String dropdownvalue = rooomsharing.first;
   String? selectedOptionfurnish;
   String? selectedOptiontenant;
-  List radioOptionfurnish=['Semi-Furnished','Un-Furnished','fully-Furnished'];
+  List radioOptionfurnish=['UnFurnished','Semi Furnished','Fully Furnished'];
   List radioOptiontenent=['Girls','Boys','Family'];
+
+  String changedAmount="";
+  String deposit="";
+  RequestUtil util=new RequestUtil();
+  UpdateDetails() async{
+    http.Response res_changeAmount= await util.update(widget.roomId, 'rent_price', changedAmount);
+    http.Response res_Dep= await util.update(widget.roomId, 'security_deposit', deposit);
+    http.Response res_Sharing= await util.update(widget.roomId, 'accomotation_type', dropdownvalue);
+    http.Response res_Fur= await util.update(widget.roomId, 'category', selectedOptionfurnish!);
+    http.Response res_Type= await util.update(widget.roomId, 'tenant', selectedOptiontenant!);
+    if(res_changeAmount.statusCode==200) print(res_changeAmount.body);
+    if(res_Dep.statusCode==200) print(res_Dep.body);
+    if(res_Sharing.statusCode==200) print(res_Sharing.body);
+    if(res_Fur.statusCode==200) print(res_Fur.body);
+    if(res_Type.statusCode==200) print(res_Type.body);
+  }
+
+  void _restartApp(BuildContext context) {
+    setState(() {
+      runApp(MyApp());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +96,7 @@ class _ChangesState extends State<Changes> {
                             keyboardType: TextInputType.number,
                             onChanged: (value){
                               setState(() {
-                                //changedAmount = int.tryParse(value)??0;
+                                changedAmount =value;
                               });
                             },
                             decoration: InputDecoration(
@@ -98,7 +122,7 @@ class _ChangesState extends State<Changes> {
                             keyboardType: TextInputType.number,
                             onChanged: (value){
                               setState(() {
-                                //changedAmount = int.tryParse(value)??0;
+                                deposit=value;
                               });
                             },
                             decoration: InputDecoration(
@@ -108,13 +132,12 @@ class _ChangesState extends State<Changes> {
                               labelText: 'Security Deposit',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-
                               ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -155,14 +178,14 @@ class _ChangesState extends State<Changes> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 10),
                       Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 13.0),
-                              child: Text('Furnished Type :-',
+                              child: Text('Furnished Type ',
                                 style: GoogleFonts.notoSans(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
@@ -191,7 +214,7 @@ class _ChangesState extends State<Changes> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 13.0),
-                                child: Text('Tenant Type :-',
+                                child: Text('Tenant Type',
                                   style: GoogleFonts.notoSans(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
@@ -214,30 +237,29 @@ class _ChangesState extends State<Changes> {
                           )
                       ),
                       SizedBox(height: 5,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>Landlord()));
-                            },
-                            child: Container(
-                              height: 38,width: 114,
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                //border:Border.all(width: 1,color: Colors.green),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text('Update',
-                                  style: TextStyle(
-                                      color: Colors.white
-                                  ),
-                                ),
+                      InkWell(
+                        onTap: (){
+                          UpdateDetails();
+                          // _restartApp(context);
+                          //Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>OwnerProfile()));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/2-60,bottom: 10),
+                          height: 38,width: 114,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            //border:Border.all(width: 1,color: Colors.green),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Text('Update',
+                              style: TextStyle(
+                                  color: Colors.white
                               ),
                             ),
                           ),
-                        ],
+                        ),
                       )
                     ],
                   ),

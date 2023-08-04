@@ -17,11 +17,6 @@ class _LandlordState extends State<Landlord> {
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
   List<Widget> rooms=[];
-  // void addList(){
-  //     for(var i=0 ;i<jsonData.length;i++){
-  //       rooms.add();
-  //     }
-  // }
 
   Future<void> _getData() async{
     http.Response response = await util.roomList();
@@ -62,10 +57,7 @@ class _LandlordState extends State<Landlord> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children:
-            // roomTile(changedAmount: 1000, roomId: '123', displaysharing1: 'single', displayFurnish1: 'semi'),
-            // roomTile(changedAmount: 2000, roomId: '456', displaysharing1: 'double', displayFurnish1: 'fully')
-            rooms,
+            children: rooms,
           ),
         ),
       ),

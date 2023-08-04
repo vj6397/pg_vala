@@ -4,7 +4,7 @@ import 'package:pg_vala/landlord/landlord.dart';
 import 'package:pg_vala/landlord/roomTile.dart';
 import 'package:pg_vala/login/login.dart';
 import 'package:pg_vala/login/otp_verification.dart';
-import 'package:pg_vala/page/changes.dart';
+import 'package:pg_vala/page/updatePage.dart';
 
 void main() {
   runApp(const MyApp());
