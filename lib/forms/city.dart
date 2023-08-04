@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pg_vala/forms/locality.dart';
 import 'package:pg_vala/forms/state.dart';

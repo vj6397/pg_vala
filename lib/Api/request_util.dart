@@ -10,4 +10,9 @@ class RequestUtil{
       headers: {'Authorization': token},
     );
   }
+  Future<http.Response> cityList() async{
+    return  http.get(Uri.parse(endponit1+'get_city_list/'),
+      headers: {'Authorization': token},
+    );
+  }
 }

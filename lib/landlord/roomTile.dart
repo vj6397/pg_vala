@@ -1,12 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pg_vala/page/changes.dart';
+import '../utils/location_list.dart';
 
 class roomTile extends StatefulWidget {
-  roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1});
+  roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status});
   String changedAmount;
   String roomId;
   String displaysharing1;
   String displayFurnish1;
+  String status;
+
 
   @override
   State<roomTile> createState() => _roomTileState();
@@ -18,6 +23,11 @@ class _roomTileState extends State<roomTile> {
   final TextEditingController furnishController = TextEditingController();
   final TextEditingController changedAmountController = TextEditingController();
   int currentindex=0;
+  bool isChecked=false;
+  var roomsharing_list = rooomsharing;
+  String dropdownvalue = rooomsharing.first;
+
+  String? selectedOption ;
 
 
   final List imageAssets = [
@@ -27,9 +37,24 @@ class _roomTileState extends State<roomTile> {
   bool _isToggled1 = false;
   void _ToggleButton1(){
     setState(() {
-      _isToggled1 = !_isToggled1;
+      _isToggled1=!_isToggled1;
     });
   }
+  void setSelectedradio(String value) {
+    setState(() {
+      selectedOption=value;
+    });
+  }
+  bool stringToBool(String value) {
+    if (value.toLowerCase() =="available") {
+      return true;
+    } else if (value.toLowerCase() == "booked") {
+      return false;
+    } else {
+      throw Exception('Invalid string value for boolean conversion: $value');
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
    
@@ -187,90 +212,7 @@ class _roomTileState extends State<roomTile> {
                           backgroundColor: Colors.white,
                         ),
                         onPressed: (){
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context){
-                              return SingleChildScrollView(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height*0.7,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        height:500,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Divider(),
-                                            TextFormField(
-                                              controller:changedAmountController,
-                                              keyboardType: TextInputType.number,
-                                              onChanged: (value){
-                                                setState(() {
-                                                  //changedAmount = int.tryParse(value)??0;
-                                                });
-                                              },
-                                              decoration: InputDecoration(
-                                                filled: true,
-                                                prefixIcon: Icon(Icons.currency_rupee),
-                                                hintText: 'Enter the changed amount',
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                              ),
-                                            ),
-                                            Divider(),
-                                            TextFormField(
-                                              controller: roomSharingController,
-                                              keyboardType: TextInputType.text,
-                                              onChanged: (value){
-                                                setState(() {
-                                                  // displaysharing1 = value;
-                                                });
-                                              },
-                                              decoration: InputDecoration(
-                                                filled: true,
-                                                prefixIcon: Icon(Icons.roofing),
-                                                hintText: 'Room Sharing',
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                              ),
-                                            ),
-                                            Divider(),
-                                            TextFormField(
-                                              controller: furnishController,
-                                              keyboardType: TextInputType.text,
-                                              onChanged: (value){
-                                                setState(() {
-                                                  //displayFurnish1 = value;
-                                                });
-                                              },
-                                              decoration: InputDecoration(
-                                                filled: true,
-                                                prefixIcon: Icon(Icons.bed),
-                                                hintText: 'Room furnish type',
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                              ),
-                                            ),
-                                            Divider(),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Changes(roomId: widget.roomId,changesAmount: widget.changedAmount,displayFurnish1: widget.displayFurnish1,displaySharing1: widget.displaysharing1,)));
                         },
                         child: Icon(Icons.more_vert,
                         color: Colors.black,
@@ -282,7 +224,8 @@ class _roomTileState extends State<roomTile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Switch(
-                        value: _isToggled1,
+                        value: stringToBool(widget.status),
+                        //stringToBool(widget.status)
                         onChanged: (value){
                           _ToggleButton1();
                         },
@@ -295,7 +238,8 @@ class _roomTileState extends State<roomTile> {
                         width: 8,
                       ),
                       Text(
-                        _isToggled1?'Avaliable':'Not Avaliable',
+                        stringToBool(widget.status)?'Avaliable':'Not Avaliable',
+                        //stringToBool(widget.status)
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,

@@ -241,7 +241,7 @@ class _landlordformState extends State<landlordform> {
                                   ),),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
