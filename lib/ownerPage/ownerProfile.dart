@@ -42,13 +42,6 @@ class _OwnerProfileState extends State<OwnerProfile> {
             children: [
               Row(
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
-                  },
-                    icon: Icon(
-                          Icons.arrow_back_rounded
-                      ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(left:10,top: 5),
                     child: Text("Owner's Profile",
@@ -66,7 +59,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
               Center(
                 child: Container(
                   width: 300,
-                  height: 250,
+                  height: 270,
                   decoration: BoxDecoration(
                     // color: Color.fromARGB(255, 255,48,68),
                     borderRadius: BorderRadius.circular(20),
@@ -115,101 +108,102 @@ class _OwnerProfileState extends State<OwnerProfile> {
               ),
               SizedBox(height: 20,),
               Center(
-                child: Container(
-                  width: 300,
-                  height: 320,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255,48,68),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  TextField(
-                                    readOnly: true,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      hintText: jsonData[0]['apartment_name'],
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 15,),
-                                  TextField(
-                                    readOnly: true,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      hintText: jsonData[0]['locality'],
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 15,),
-                                  TextField(
-                                    readOnly: true,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      hintText: jsonData[0]['city'],
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 15,),
-                                  TextField(
-                                    readOnly: true,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      hintText: jsonData[0]['address'],
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                          ),
-                        ),
-                      ],
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    width: 300,
+                    height: 340,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255,48,68),
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                  ),
-                )
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      readOnly: true,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        hintText: jsonData[0]['apartment_name'],
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15,),
+                                    TextField(
+                                      readOnly: true,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        hintText: jsonData[0]['locality'],
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15,),
+                                    TextField(
+                                      readOnly: true,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        hintText: jsonData[0]['city'],
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15,),
+                                    TextField(
+                                      readOnly: true,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        hintText: jsonData[0]['address'],
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
               ),
             ],
           ),
@@ -218,12 +212,3 @@ class _OwnerProfileState extends State<OwnerProfile> {
     );
   }
 }
-
-
-
-
-
-
-
-
-

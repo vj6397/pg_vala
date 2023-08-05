@@ -7,8 +7,10 @@ import 'package:otp_text_field/style.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart'as http;
 import 'package:pg_vala/landlord/landlord.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pg_vala/utils/location_list.dart';
 import '../Navigate/navigate.dart';
+
 
 class OtpVerify extends StatefulWidget {
   OtpVerify({required this.number});
@@ -127,6 +129,8 @@ class _OtpVerifyState extends State<OtpVerify> {
                         http.Response res= await util.login(widget.number.toString(), _otp);
                         if(res.statusCode==200){
                           print(res.body);
+                          var shr=await SharedPreferences.getInstance();
+                          shr.setBool(keyVal, true);
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationScreen(
                             currIndx: 0,
                           ),));

@@ -1,36 +1,64 @@
-
+import 'dart:async';
+import 'utils/location_list.dart';
 import 'package:flutter/material.dart';
+import 'package:pg_vala/forms/landlordForm.dart';
 import 'package:pg_vala/landlord/landlord.dart';
 import 'package:pg_vala/landlord/roomTile.dart';
 import 'package:pg_vala/login/login.dart';
 import 'package:pg_vala/login/otp_verification.dart';
 import 'package:pg_vala/ownerPage/ownerProfile.dart';
 import 'package:pg_vala/page/updatePage.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Navigate/navigate.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+    theme: ThemeData(primarySwatch: Colors.green),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  getLoggedInState() async {
+    var shr=await SharedPreferences.getInstance();
+    var userIsLoggedIn=shr.getBool(keyVal);
+    Timer(
+      Duration(seconds: 2),
+          () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => userIsLoggedIn != null
+                ? userIsLoggedIn
+                ? NavigationScreen(currIndx: 0)
+                : Login()
+                : Login()),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLoggedInState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PG Vala',
-      // initialRoute: '/home',
-      // routes: {
-      //   // '/login': (context) => const Login(),
-      //   // '/home': (context) => const Home(),
-      //   // '/search': (context) => const Search(),
-      //   // '/Deliveryform': (context) => const PateintDetailsDelivery(),
-      //   // '/TakeAwayform': (context) => const PateintDetailsTakeaway(),
-      // },
+      title: "Shared Preferences",
       debugShowCheckedModeBanner: false,
-      home: NavigationScreen(currIndx: 0),
+      home: Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          )),
     );
   }
 }
