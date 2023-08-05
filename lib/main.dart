@@ -1,13 +1,7 @@
 import 'dart:async';
 import 'utils/location_list.dart';
 import 'package:flutter/material.dart';
-import 'package:pg_vala/forms/landlordForm.dart';
-import 'package:pg_vala/landlord/landlord.dart';
-import 'package:pg_vala/landlord/roomTile.dart';
 import 'package:pg_vala/login/login.dart';
-import 'package:pg_vala/login/otp_verification.dart';
-import 'package:pg_vala/ownerPage/ownerProfile.dart';
-import 'package:pg_vala/page/updatePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Navigate/navigate.dart';
 
@@ -62,8 +56,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-
-
-

@@ -37,5 +37,10 @@ class RequestUtil{
       headers: {'Authorization': token},
     );
   }
+  Future<http.Response> sales_logIn(sales_id,password)async{
+    return http.put(Uri.parse(endpoint+'sales_login/?sales_id=$sales_id&password=$password'),
+        headers: {'Authorization': token},
+    );
+  }
 
 }

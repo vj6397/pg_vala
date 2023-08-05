@@ -125,8 +125,7 @@ class _CityLocationState extends State<CityLocation> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Locality()),
-                    );
+                      MaterialPageRoute(builder: (context) => Locality()));
                   },
                   child: Container(
                     height: 38,

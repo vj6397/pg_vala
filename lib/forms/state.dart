@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pg_vala/forms/city.dart';
-import 'package:pg_vala/forms/landlordForm.dart';
-
+import 'package:pg_vala/Onboarding/registerAccomodation.dart';
 import '../utils/location_list.dart';
 
 class stateLoc extends StatefulWidget {

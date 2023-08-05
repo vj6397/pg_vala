@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pg_vala/forms/state.dart';
-import 'package:pg_vala/utils/location_list.dart';
+import '../utils/location_list.dart';
 
+//register_accomodation.
 class landlordform extends StatefulWidget {
-  const landlordform({Key? key}) : super(key: key);
-
+  const landlordform({super.key});
   @override
   State<landlordform> createState() => _landlordformState();
 }
@@ -16,6 +16,8 @@ class _landlordformState extends State<landlordform> {
   String contact1= "";
   String contact2 = "";
   String email = "";
+  String total_accomodation = "";
+  String tenant="";
   bool isChecked = false;
 
   var states_list=states;
@@ -28,18 +30,20 @@ class _landlordformState extends State<landlordform> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
+              IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_rounded)),
+              SizedBox(height: 10,),
               Container(
                 margin: EdgeInsets.only(top: 40),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 15),
+                      margin: EdgeInsets.only(left: 15,bottom: 10),
                       child: Text(
                         'Apartment Name',
                         style: GoogleFonts.notoSans(
@@ -124,9 +128,7 @@ class _landlordformState extends State<landlordform> {
                             hintText: 'Enter Conatct1'),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
                     Container(
                       margin: EdgeInsets.only(left: 15),
                       child: Text(
@@ -186,7 +188,65 @@ class _landlordformState extends State<landlordform> {
                             hintText: 'Enter Email'),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: 20),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Accomodation details',
+                        style: GoogleFonts.notoSans(
+                            fontWeight: FontWeight.w600, fontSize: 12),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: TextField(
+                        onChanged: (val) {
+                          total_accomodation = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: Colors
+                                    .black, // Set the desired border width here
+                              ),
+                            ),
+                            hintText: 'Total number of Accomodation'),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Tenant details',
+                        style: GoogleFonts.notoSans(
+                            fontWeight: FontWeight.w600, fontSize: 12),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: TextField(
+                        onChanged: (val) {
+                          tenant = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: Colors
+                                    .black, // Set the desired border width here
+                              ),
+                            ),
+                            hintText: 'Enter tenant details'),
+                      ),
+                    ),
+                    SizedBox(height: 15,),
                     CheckboxListTile(
                       title: Text('Remember me'),
                       checkColor: Colors.white,
@@ -223,9 +283,7 @@ class _landlordformState extends State<landlordform> {
                           ),
                           InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                                stateLoc(),
-                              ));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc()));
                             },
                             child: Container(
                               height: 38,width: 114,

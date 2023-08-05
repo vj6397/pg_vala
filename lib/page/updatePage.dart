@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:pg_vala/circularProgressIndicator/circularProgressIndicator.dart';
-import 'package:pg_vala/landlord/landlord.dart';
 import 'package:http/http.dart' as http;
-import 'package:pg_vala/ownerPage/ownerProfile.dart';
 import '../main.dart';
 import '../utils/location_list.dart';
 
@@ -26,23 +24,30 @@ class _UpdateState extends State<Update> {
   String dropdownvalue = rooomsharing.first;
   String? selectedOptionfurnish;
   String? selectedOptiontenant;
-  List radioOptionfurnish=['UnFurnished','Semi Furnished','Fully Furnished'];
+  List radioOptionfurnish=['Un Furnished','Semi Furnished','Fully Furnished'];
   List radioOptiontenent=['Girls','Boys','Family'];
 
-  String changedAmount="";
-  String deposit="";
+  String newAmount='';
+  String deposit='';
   RequestUtil util=new RequestUtil();
   UpdateDetails() async{
-    http.Response res_changeAmount= await util.update(widget.roomId, 'rent_price', changedAmount);
-    http.Response res_Dep= await util.update(widget.roomId, 'security_deposit', deposit);
+
+    if(double.parse(newAmount).toDouble()!='0.0'){
+      await util.update(widget.roomId, 'rent_price', double.parse(newAmount).toDouble());
+    }
+    //if(res_Dep.statusCode==200) print(res_Dep.body);
     http.Response res_Sharing= await util.update(widget.roomId, 'accomotation_type', dropdownvalue);
     http.Response res_Fur= await util.update(widget.roomId, 'category', selectedOptionfurnish!);
     http.Response res_Type= await util.update(widget.roomId, 'tenant', selectedOptiontenant!);
-    if(res_changeAmount.statusCode==200) print(res_changeAmount.body);
-    if(res_Dep.statusCode==200) print(res_Dep.body);
+    //if(res_newAmount.statusCode==200) print(res_newAmount.body);
+    //if(res_Dep.statusCode==200) print('hello');
     if(res_Sharing.statusCode==200) print(res_Sharing.body);
     if(res_Fur.statusCode==200) print(res_Fur.body);
     if(res_Type.statusCode==200) print(res_Type.body);
+  }
+  UpadateDeposit() async{
+    if(double.parse(deposit).toDouble()!='0.0')
+      http.Response res_Dep=  await util.update(widget.roomId, 'security_deposit', double.parse(deposit).toDouble());
   }
 
   @override
@@ -93,14 +98,14 @@ class _UpdateState extends State<Update> {
                             keyboardType: TextInputType.number,
                             onChanged: (value){
                               setState(() {
-                                changedAmount =value;
+                                newAmount =value;
                               });
                             },
                             decoration: InputDecoration(
                               filled: true,
                               prefixIcon: Icon(Icons.currency_rupee),
                               hintText: '${widget.changesAmount}',
-                              labelText: 'Enter the changed amount',
+                              labelText: 'Enter the changed rent price',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
 
@@ -237,6 +242,7 @@ class _UpdateState extends State<Update> {
                       InkWell(
                         onTap: (){
                           UpdateDetails();
+                          UpadateDeposit();
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>circularProgressIndicator()));
                         },
                         child: Container(

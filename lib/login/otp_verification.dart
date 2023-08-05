@@ -6,7 +6,6 @@ import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart'as http;
-import 'package:pg_vala/landlord/landlord.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pg_vala/utils/location_list.dart';
 import '../Navigate/navigate.dart';
@@ -133,8 +132,9 @@ class _OtpVerifyState extends State<OtpVerify> {
                           shr.setBool(keyVal, true);
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationScreen(
                             currIndx: 0,
-                          ),));
+                          )));
                         }
+
                         else{
                           print('hello');
                           Fluttertoast.showToast(

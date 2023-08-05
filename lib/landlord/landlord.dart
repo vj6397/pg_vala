@@ -15,15 +15,19 @@ class _LandlordState extends State<Landlord> {
 
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
+  List<dynamic> jsonData1=[];
   List<Widget> rooms=[];
 
   Future<void> _getData() async{
     http.Response response = await util.roomList();
-    if(response.statusCode==200){
+    http.Response response1 = await util.cityList();
+    if(response.statusCode==200 && response1.statusCode==200){
       setState(() {
         //addList();
         print(response.body);
+        print(response1.body);
         jsonData = jsonDecode(response.body);
+        jsonData1 =jsonDecode(response1.body);
         var i=0;
         while(i<jsonData.length){
           rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"],status: jsonData[i]["status"],depositAmount: jsonData[i]["security_deposit"].toString()));
@@ -37,6 +41,7 @@ class _LandlordState extends State<Landlord> {
         print(jsonData.length);
         print(jsonData[0]);
         print(jsonData[0]["security_deposit"]);
+
       });
     }
     else{
