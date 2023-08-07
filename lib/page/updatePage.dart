@@ -8,7 +8,7 @@ import '../utils/location_list.dart';
 
 class Update extends StatefulWidget {
   Update({required this.roomId,required this.changesAmount,required this.displayFurnish1,required this.displaySharing1,required this.depositAmount});
-  //
+
   String roomId;
   String displayFurnish1;
   String changesAmount;
