@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:pg_vala/landlord/landlord.dart';
+
 import 'utils/location_list.dart';
 import 'package:flutter/material.dart';
 import 'package:pg_vala/login/login.dart';
@@ -37,11 +39,15 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
+  Future<void> get_token() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    ktoken=prefs.getString('token');
+  }
   @override
-  void initState() {
+  initState(){
     super.initState();
     getLoggedInState();
+    get_token();
   }
 
   @override

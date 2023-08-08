@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -128,15 +129,20 @@ class _OtpVerifyState extends State<OtpVerify> {
                         http.Response res= await util.login(widget.number.toString(), _otp);
                         if(res.statusCode==200){
                           print(res.body);
+                          Map<String, dynamic> l=jsonDecode(res.body);
+                          var token='Bearer '+l["access_token"];
+                          print(token);
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setString('token', token);
+                          ktoken=token;
                           var shr=await SharedPreferences.getInstance();
                           shr.setBool(keyVal, true);
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationScreen(
                             currIndx: 0,
                           )));
                         }
-
                         else{
-                          print('hello');
+                          print(res.body);
                           Fluttertoast.showToast(
                               msg: "Invalid OTP",
                               toastLength: Toast.LENGTH_SHORT,

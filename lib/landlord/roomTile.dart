@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pg_vala/Api/request_util.dart';
@@ -5,13 +7,14 @@ import 'package:pg_vala/page/updatePage.dart';
 import 'package:http/http.dart' as http;
 
 class roomTile extends StatefulWidget {
-  roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status,required this.depositAmount});
+  roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status,required this.depositAmount,required this.imgList});
   String changedAmount;
   String roomId;
   String displaysharing1;
   String displayFurnish1;
   String status;
   String depositAmount;
+  String imgList;
 
   @override
   State<roomTile> createState() => _roomTileState();
@@ -28,9 +31,20 @@ class _roomTileState extends State<roomTile> {
   RequestUtil util=new RequestUtil();
 
   final List imageAssets = [
-    {"id":1,"image_path":'assets/bed1.png'},
-    {"id":2,"image_path":'assets/bed2.png'},
+    // {"id":1,"image_path":'assets/bed1.png'},
+    // {"id":2,"image_path":'assets/bed2.png'},
   ];
+  void get_images(){
+    String jsonString =widget.imgList;
+    Map<String, dynamic> jsonMap = json.decode(jsonString);
+    List<String> filenames = jsonMap.values.map<String>((value) => value.toString()).toList();
+    print(filenames);
+    for (int i = 0; i < filenames.length; i++) {
+      String imagePath = filenames[i];
+      Map<String, dynamic> imageData = {"id": i, "image_path": imagePath};
+      imageAssets.add(imageData);
+    }
+  }
   bool stringToBool(String value) {
     if (value.toLowerCase() =="available") {
       return true;
@@ -54,6 +68,7 @@ class _roomTileState extends State<roomTile> {
     // TODO: implement initState
     super.initState();
     _isToggled1=stringToBool(widget.status);
+    get_images();
   }
 
 
@@ -77,13 +92,12 @@ class _roomTileState extends State<roomTile> {
                     },
                     child: CarouselSlider(
                       items: imageAssets.map(
-                              (item) => Image.asset(
-                            item['image_path'],
+                              (item) => Image.network(
+                            'https://pgvala.s3.amazonaws.com/${item["image_path"]}',
                             fit: BoxFit.cover,
                             width: double.infinity,
                           )
-                      )
-                          .toList(),
+                      ).toList(),
                       carouselController: carouselController,
                       options: CarouselOptions(
                           scrollPhysics: const BouncingScrollPhysics(),

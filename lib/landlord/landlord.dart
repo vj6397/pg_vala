@@ -30,7 +30,7 @@ class _LandlordState extends State<Landlord> {
         jsonData1 =jsonDecode(response1.body);
         var i=0;
         while(i<jsonData.length){
-          rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"],status: jsonData[i]["status"],depositAmount: jsonData[i]["security_deposit"].toString()));
+          rooms.add(roomTile(changedAmount:jsonData[i]["rent_price"].toString(),roomId: jsonData[i]["roomid"],displaysharing1: jsonData[i]["accomotation_type"],displayFurnish1: jsonData[i]["category"],status: jsonData[i]["status"],depositAmount: jsonData[i]["security_deposit"].toString(), imgList: jsonData[i]["images"]));
           i++;
           //depositAmount: jsonData[i]["security_deposit"]
         }
@@ -41,6 +41,7 @@ class _LandlordState extends State<Landlord> {
         print(jsonData.length);
         print(jsonData[0]);
         print(jsonData[0]["security_deposit"]);
+        print(jsonData[0]["images"]);
 
       });
     }
