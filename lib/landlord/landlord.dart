@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pg_vala/Api/request_util.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -66,15 +67,16 @@ class _LandlordState extends State<Landlord> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 150,top: 20),
+                padding: EdgeInsets.only(right: 20,left: 15,top: 10),
                 child: Text('Accomodation List',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w400,
-                ),
+                  style:  GoogleFonts.poppins (
+                    fontSize:  15,
+                    fontWeight:  FontWeight.w600,
+                    color:  Color(0xff201a25),
+                  ),
                 ),
               ),
-              SizedBox(height: 15,),
+              // SizedBox(height: 15,),
               Column(
                 children: rooms,
               ),

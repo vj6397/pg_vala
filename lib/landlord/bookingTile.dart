@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:pg_vala/circularProgressIndicator/circularProgressIndicator.dart';
 import '../Api/request_util.dart';
 
 
@@ -35,7 +36,7 @@ class _bookingTileState extends State<bookingTile> {
                 onPressed: ()async{
                   http.Response response=await util.updateDetail(widget.roomId,"status","Booked");
                   print(response.body);
-                  Navigator.of(context).pop();
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>circularProgressIndicator()));
                 },
                 child: Text('OK'),
               )

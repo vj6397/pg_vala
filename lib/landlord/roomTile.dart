@@ -5,6 +5,8 @@ import 'package:pg_vala/Api/request_util.dart';
 import 'package:pg_vala/page/updatePage.dart';
 import 'package:http/http.dart' as http;
 
+import '../circularProgressIndicator/circularProgressIndicator.dart';
+
 class roomTile extends StatefulWidget {
   roomTile({required this.changedAmount,required this.roomId,required this.displaysharing1,required this.displayFurnish1,required this.status,required this.depositAmount,required this.imgList});
   String changedAmount;
@@ -43,6 +45,27 @@ class _roomTileState extends State<roomTile> {
       Map<String, dynamic> imageData = {"id": i, "image_path": imagePath};
       imageAssets.add(imageData);
     }
+  }
+  void _showAlertDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text('Alert'),
+            content: Text('${_isToggled1?'Do you want to make the room booked':'Do you want to make the room avaliable'} '),
+            actions:<Widget>[
+              TextButton(
+                onPressed: ()async{
+                  // http.Response response=await util.updateDetail(widget.roomId,"status","Booked");
+                  // print(response.body);
+                   Navigator.push(context,MaterialPageRoute(builder: (context)=>circularProgressIndicator()));
+                },
+                child: Text('OK'),
+              )
+            ],
+          );
+        }
+    );
   }
   bool stringToBool(String value) {
     if (value.toLowerCase() =="available") {
@@ -244,6 +267,7 @@ class _roomTileState extends State<roomTile> {
                         //stringToBool(widget.status)
                         onChanged: (value){
                           _ToggleButton1(value);
+                          _showAlertDialog(context);
                         },
                         activeTrackColor: Colors.lightGreen,
                         activeColor: Colors.green,
@@ -254,7 +278,7 @@ class _roomTileState extends State<roomTile> {
                         width: 8,
                       ),
                       Text(
-                        _isToggled1?'Avaliable':'Not Avaliable',
+                        _isToggled1?'Avaliable':'Booked',
                         //stringToBool(widget.status)
                         style: TextStyle(
                           fontSize: 15,

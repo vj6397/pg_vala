@@ -29,7 +29,7 @@ class _paymentStatusState extends State<paymentStatus> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
           child:Container(
-            height: 250,
+            height: 220,
             width: MediaQuery.of(context).size.width-20,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,50 +40,50 @@ class _paymentStatusState extends State<paymentStatus> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Room ID :-${widget.roomId}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Room ID :-${widget.roomId}',style: GoogleFonts.poppins(
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Date :-${widget.date}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Date :-${widget.date}',style: GoogleFonts.poppins(
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Visiting Time :-${widget.visiting_time}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Visiting Time :-${widget.visiting_time}',style: GoogleFonts.poppins (
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Name :-${widget.name}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Name :-${widget.name}',style: GoogleFonts.poppins (
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Contact :-${widget.contact}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Contact :-${widget.contact}',style: GoogleFonts.poppins(
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Agg Fee :-${widget.agg_fee}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Agg Fee :-${widget.agg_fee}',style: GoogleFonts.poppins (
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Payment Status :-${widget.payment_status}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Payment Status :-${widget.payment_status}',style: GoogleFonts.poppins (
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
                       SizedBox(height: 4,),
-                      Text('Transcation ID :-${widget.transaction_id}',style: GoogleFonts.roboto (
-                        fontSize:  17,
+                      Text('Transcation ID :-${widget.transaction_id}',style: GoogleFonts.poppins(
+                        fontSize:  14,
                         fontWeight:  FontWeight.w500,
                         color:  Colors.black,
                       ),),
