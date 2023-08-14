@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pg_vala/Api/request_util.dart';

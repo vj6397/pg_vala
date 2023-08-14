@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pg_vala/landlord/bookingPage.dart';
+import 'package:pg_vala/landlord/paymentStatusTile.dart';
 import '../landlord/landlord.dart';
 import '../ownerPage/ownerProfile.dart';
 
@@ -11,6 +13,8 @@ class NavigationScreen extends StatefulWidget {
 }
 List<Widget> screens = [
   Landlord(),
+  bookingPage(),
+  paymentStatusTile(),
   OwnerProfile(),
 ];
 
@@ -25,7 +29,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.deepPurpleAccent,
+        selectedItemColor: Color.fromARGB(255, 255, 48, 68),
         currentIndex: widget.currIndx,
         onTap: (index) {
           setState(() {
@@ -33,7 +37,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
           });
         },
         items: const[
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: 'home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.book_outlined),label: 'Bookings'),
+          BottomNavigationBarItem(icon: Icon(Icons.payment),label: 'Transactions'),
           BottomNavigationBarItem(icon: Icon(Icons.person),label: 'OwnerProfile'),
         ],
       ),

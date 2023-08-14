@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:pg_vala/landlord/landlord.dart';
-
+import 'package:pg_vala/landlord/paymentStatus.dart';
+import 'package:pg_vala/landlord/paymentStatusTile.dart';
+import 'landlord/bookingPage.dart';
 import 'utils/location_list.dart';
 import 'package:flutter/material.dart';
 import 'package:pg_vala/login/login.dart';
@@ -62,3 +64,23 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+// void main() {
+//   runApp(const MyApp());
+// }
+//
+// class MyApp extends StatefulWidget {
+//   const MyApp({super.key});
+//
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
+//
+// class _MyAppState extends State<MyApp> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home:bookingPage(),
+//     );
+//   }
+// }
